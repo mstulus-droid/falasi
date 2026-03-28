@@ -458,7 +458,7 @@ export function FallacyExplorer({ data }: Props) {
             <div className="fine-scrollbar overflow-auto p-5 sm:p-6">
             <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
               <div className="space-y-5">
-                <div className="sticky top-0 z-10 -mx-5 -mt-5 flex items-start justify-between gap-4 border-b border-[var(--border)] bg-[rgba(255,252,246,0.98)] px-5 py-5 backdrop-blur-md sm:-mx-6 sm:-mt-6 sm:px-6 sm:py-6">
+                <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="section-title">Kotak Uji</p>
                     <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--accent-strong)] sm:text-4xl">
@@ -483,8 +483,8 @@ export function FallacyExplorer({ data }: Props) {
                 </label>
               </div>
 
-                <div className="space-y-5">
-                <div className="sticky top-[112px] z-10 flex items-start justify-between gap-4 rounded-[24px] bg-[rgba(255,252,246,0.98)] py-1 backdrop-blur-md">
+              <div className="space-y-5">
+                <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="section-title">Hasil</p>
                     <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--accent-strong)] sm:text-4xl">
