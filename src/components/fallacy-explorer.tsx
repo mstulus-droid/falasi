@@ -50,7 +50,7 @@ export function FallacyExplorer({ data }: Props) {
   useEffect(() => {
     const container = navScrollRef.current;
     const header = navHeaderRef.current;
-    if (!container || !header) {
+    if (!header) {
       return;
     }
 
@@ -80,11 +80,13 @@ export function FallacyExplorer({ data }: Props) {
     };
 
     updateStickyPath();
-    container.addEventListener("scroll", updateStickyPath, { passive: true });
+    container?.addEventListener("scroll", updateStickyPath, { passive: true });
+    window.addEventListener("scroll", updateStickyPath, { passive: true });
     window.addEventListener("resize", updateStickyPath);
 
     return () => {
-      container.removeEventListener("scroll", updateStickyPath);
+      container?.removeEventListener("scroll", updateStickyPath);
+      window.removeEventListener("scroll", updateStickyPath);
       window.removeEventListener("resize", updateStickyPath);
     };
   }, [visibleNodeIds, nodeLookup, openNodeIds, query]);
@@ -378,8 +380,9 @@ export function FallacyExplorer({ data }: Props) {
       </section>
 
       {isDetailOpen && (
-        <div className="fixed inset-0 z-40 flex items-end justify-center bg-[rgba(31,41,55,0.35)] p-3 backdrop-blur-sm xl:hidden">
-          <div className="glass-panel fine-scrollbar max-h-[88vh] w-full max-w-3xl overflow-auto rounded-[32px] p-5 shadow-[0_24px_60px_rgba(31,41,55,0.22)]">
+        <div className="fixed inset-0 z-40 flex items-center justify-center bg-[rgba(31,41,55,0.35)] p-3 backdrop-blur-sm xl:hidden">
+          <div className="glass-panel flex max-h-[calc(100dvh-1.5rem)] w-full max-w-3xl flex-col overflow-hidden rounded-[32px] shadow-[0_24px_60px_rgba(31,41,55,0.22)]">
+            <div className="fine-scrollbar overflow-auto p-5">
             <div className="space-y-5">
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-3">
@@ -434,6 +437,7 @@ export function FallacyExplorer({ data }: Props) {
                 ))}
               </div>
             </div>
+            </div>
           </div>
         </div>
       )}
@@ -449,11 +453,12 @@ export function FallacyExplorer({ data }: Props) {
       </button>
 
       {isAnalysisOpen && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-[rgba(31,41,55,0.35)] p-3 backdrop-blur-sm sm:items-center sm:p-6">
-          <div className="glass-panel fine-scrollbar w-full max-w-6xl rounded-[32px] p-5 shadow-[0_24px_60px_rgba(31,41,55,0.22)] sm:max-h-[88vh] sm:overflow-auto sm:p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(31,41,55,0.35)] p-3 backdrop-blur-sm sm:p-6">
+          <div className="glass-panel flex max-h-[calc(100dvh-1.5rem)] w-full max-w-6xl flex-col overflow-hidden rounded-[32px] shadow-[0_24px_60px_rgba(31,41,55,0.22)]">
+            <div className="fine-scrollbar overflow-auto p-5 sm:p-6">
             <div className="grid gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
               <div className="space-y-5">
-                <div className="flex items-start justify-between gap-4">
+                <div className="sticky top-0 z-10 -mx-5 -mt-5 flex items-start justify-between gap-4 border-b border-[var(--border)] bg-[rgba(255,252,246,0.98)] px-5 py-5 backdrop-blur-md sm:-mx-6 sm:-mt-6 sm:px-6 sm:py-6">
                   <div>
                     <p className="section-title">Kotak Uji</p>
                     <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--accent-strong)] sm:text-4xl">
@@ -464,13 +469,7 @@ export function FallacyExplorer({ data }: Props) {
                       penjelasan, dan contoh yang paling dekat.
                     </p>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setIsAnalysisOpen(false)}
-                    className="rounded-full border border-[var(--border)] bg-white/70 px-3 py-2 text-sm font-semibold text-[var(--accent-strong)] transition hover:bg-white"
-                  >
-                    Tutup
-                  </button>
+                  <div className="shrink-0" />
                 </div>
 
                 <label className="block">
@@ -484,8 +483,8 @@ export function FallacyExplorer({ data }: Props) {
                 </label>
               </div>
 
-              <div className="space-y-5">
-                <div className="flex items-start justify-between gap-4">
+                <div className="space-y-5">
+                <div className="sticky top-[112px] z-10 flex items-start justify-between gap-4 rounded-[24px] bg-[rgba(255,252,246,0.98)] py-1 backdrop-blur-md">
                   <div>
                     <p className="section-title">Hasil</p>
                     <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[var(--accent-strong)] sm:text-4xl">
@@ -540,6 +539,7 @@ export function FallacyExplorer({ data }: Props) {
                   )}
                 </div>
               </div>
+            </div>
             </div>
           </div>
         </div>
